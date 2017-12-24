@@ -30,6 +30,7 @@ var platforms;
 var score = 0;
 var scoreText;
 var player;
+var ledge;
 
 function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);  // enable game Physics system
@@ -43,7 +44,7 @@ function create() {
 //    ground.scale.setTo(2, 2); // scale to fit in width of game
 //	ground.body.immovable = true; // won't fall away when you jump on it
 
-	var ledge = platforms.create(400, 0, 'ground');
+	ledge = platforms.create(400, 0, 'ground');
 	ledge.body.gravity.y = 300;
 	ledge.body.bounce.y = .2;
 	ledge.body.collideWorldBounds = true;
@@ -67,14 +68,14 @@ function create() {
 //	    var star = stars.create(i*70, 0, 'star');
 //	    star.body.gravity.y = 6;
 //	    star.body.bounce.y = 0.7 + Math.random() * 0.2;
-//	}
+//
 
 //	scoreText = game.add.text(16, 16, 'Score: 0', {fontSize:'32px', fill: '#000'});
 }
 
 var count = 0;
 function update() { // called every frame
-	var hitPlatform = game.physics.arcade.collide(player, platforms);
+	var hitPlatform = game.physics.arcade.collide(platforms);
 	count++;
 
 	if (count%50 == 0) {
@@ -82,8 +83,9 @@ function update() { // called every frame
         ledge.body.gravity.y = 300;
         ledge.body.bounce.y = .2;
         ledge.body.collideWorldBounds = true;
-        ledge.body.immovable = true;
+        ledge.body.immovable = false;
         game.physics.arcade.enable(ledge);
+//        game.physics.arcade.collide(platforms);
 	}
 
 
